@@ -1,0 +1,26 @@
+name: build
+
+on:
+  push:
+    branches:
+    - '*'
+    tags-ignore:
+    - 'v*'
+  pull_request:
+
+jobs:
+  build:
+    name: Build Checkmk package
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - uses: jiuka/build-checkmk-extension@v1
+      id: cmkpkg
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: ${{ steps.cmkpkg.outputs.pkgfile }}
+        path: ${{ steps.cmkpkg.outputs.pkgfile }}

@@ -1,0 +1,20 @@
+{
+    'author': u'',
+    'description': u'',
+    'download_url': '',
+    'files': {
+        'agents': [],
+        'checkman': [],
+        'checks': [],
+        'doc': [],
+        'inventory': [],
+        'notifications': [],
+        'pnp-templates': [],
+        'web': []
+    },
+    'name': '',
+    'title': u'',
+    'version': '0.1',
+    'version.min_required': '2.0.0',
+    'version.packaged': '2.0.0'
+}

@@ -1,0 +1,35 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install",
+            "type": "shell",
+            "command": ".devcontainer/build.sh",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Start Site",
+            "type": "shell",
+            "command": "omd start",
+            "problemMatcher": []
+        },
+        {
+            "label": "Re-Start Site",
+            "type": "shell",
+            "command": "omd restart",
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop Site",
+            "type": "shell",
+            "command": "omd stop",
+            "problemMatcher": []
+        }
+    ]
+}
