@@ -1,0 +1,3 @@
+[flake8]
+# In .style.yapf and .pylintrc we use 100, but in some cases this isn't enforced.
+max-line-length=550

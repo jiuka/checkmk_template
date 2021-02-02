@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/omd/sites/cmk/bin/python3",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
