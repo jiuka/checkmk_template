@@ -3,6 +3,7 @@
     'description': u'',
     'download_url': '',
     'files': {
+        'agent_based': [],
         'agents': [],
         'checkman': [],
         'checks': [],
