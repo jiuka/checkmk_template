@@ -10,13 +10,25 @@ jobs:
   build-release:
     name: Build Release Package
     runs-on: ubuntu-latest
+    container:
+      image: checkmk/check-mk-raw:2.0.0-latest
+
+    env:
+      OMD_ROOT: /omd/sites/cmk
+      OMD_SITE: cmk
+      CMK_SITE_ID: cmk
+      WORKSPACE: ${{ github.workspace }}
 
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v1
-
-      - name: Build the Package
-        uses: jiuka/build-checkmk-extension@v1
+      - name: Initialize Checkmk Site
+        run: /docker-entrypoint.sh /bin/true
+      - uses: actions/checkout@v2
+      - name: Setup links
+        run: .devcontainer/symlink.sh
+      - name: Update GITHUB_PATH
+        run: echo "/omd/sites/cmk/bin" >> $GITHUB_PATH
+      - name: Build Extension
+        run: .devcontainer/build.sh
         id: cmkpkg
 
       - name: Create Release

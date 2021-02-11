@@ -15,7 +15,8 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-python.python"
+		"ms-python.python",
+		"littlefoxteam.vscode-python-test-adapter"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -28,7 +29,7 @@
 	"remoteUser": "cmk",
 
 	"remoteEnv": {
-		"PATH": "${containerEnv:PATH}:/omd/sites/cmk/bin",
+		"PATH": "${containerEnv:PATH}:/omd/sites/cmk/bin:/omd/sites/cmk/local/lib/python3/bin/",
 		"OMD_ROOT": "/omd/sites/cmk",
 		"OMD_SITE": "cmk",
 		"CMK_SITE_ID": "cmk",
