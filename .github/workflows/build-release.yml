@@ -11,7 +11,7 @@ jobs:
     name: Build Release Package
     runs-on: ubuntu-latest
     container:
-      image: checkmk/check-mk-raw:2.0.0-latest
+      image: checkmk/check-mk-raw:2.1.0-latest
 
     env:
       OMD_ROOT: /omd/sites/cmk
