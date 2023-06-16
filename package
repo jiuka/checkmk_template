@@ -17,5 +17,6 @@
     'title': u'',
     'version': '0.1',
     'version.min_required': '2.0.0',
-    'version.packaged': '2.0.0'
+    'version.packaged': '2.2.0',
+    'version.usable_until': '2.3.0',
 }

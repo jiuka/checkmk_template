@@ -13,7 +13,7 @@ jobs:
     name: Build Checkmk package
     runs-on: ubuntu-latest
     container:
-      image: checkmk/check-mk-raw:2.1.0-latest
+      image: checkmk/check-mk-raw:2.2.0-latest
 
     env:
       OMD_ROOT: /omd/sites/cmk
@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Initialize Checkmk Site
         run: /docker-entrypoint.sh /bin/true
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup links
         run: .devcontainer/symlink.sh
       - name: Update GITHUB_PATH
@@ -33,7 +33,7 @@ jobs:
         run: .devcontainer/build.sh
         id: cmkpkg
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.cmkpkg.outputs.pkgfile }}
           path: ${{ steps.cmkpkg.outputs.pkgfile }}
