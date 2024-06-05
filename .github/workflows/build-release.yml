@@ -11,7 +11,7 @@ jobs:
     name: Build Release Package
     runs-on: ubuntu-latest
     container:
-      image: checkmk/check-mk-raw:2.2.0-latest
+      image: checkmk/check-mk-raw:2.3.0-latest
     permissions:
       contents: write
 
@@ -24,17 +24,24 @@ jobs:
     steps:
       - name: Initialize Checkmk Site
         run: /docker-entrypoint.sh /bin/true
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Parse Package File
+        run: |
+          NAME=$(python3 -c 'print(eval(open("package").read())["name"])')
+          VERSION=$(python3 -c 'print(eval(open("package").read())["version"])')
+          echo "CMKPKG_NAME=$NAME" >> "$GITHUB_ENV"
+          echo "CMKPKG_VERSION=$VERSION" >> "$GITHUB_ENV"
       - name: Setup links
         run: .devcontainer/symlink.sh
-      - name: Update GITHUB_PATH
-        run: echo "/omd/sites/cmk/bin" >> $GITHUB_PATH
       - name: Build Extension
-        run: .devcontainer/build.sh
+        run: |
+          chown -R cmk:cmk $GITHUB_WORKSPACE
+          su -l -c "mkp -v package $GITHUB_WORKSPACE/package" cmk
+          cp /omd/sites/cmk/var/check_mk/packages_local/${CMKPKG_NAME}-${CMKPKG_VERSION}.mkp .
+          echo "pkgfile=${CMKPKG_NAME}-${CMKPKG_VERSION}.mkp" >> $GITHUB_OUTPUT
         id: cmkpkg
-
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           release_name: Release ${{ github.ref }}
           draft: false
