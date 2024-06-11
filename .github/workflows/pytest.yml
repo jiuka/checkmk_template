@@ -13,6 +13,12 @@ jobs:
     container:
       image: checkmk/check-mk-raw:2.3.0-latest
 
+    env:
+      OMD_ROOT: /omd/sites/cmk
+      OMD_SITE: cmk
+      CMK_SITE_ID: cmk
+      WORKSPACE: ${{ github.workspace }}
+
     steps:
       - name: Initialize Checkmk Site
         run: /docker-entrypoint.sh /bin/true
@@ -22,4 +28,6 @@ jobs:
       - name: Install pytest
         run: su -l -c "REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt pip3 install -r $GITHUB_WORKSPACE/.devcontainer/requirements.txt" cmk
       - name: Run pytest
-        run: su -l -c "python3 -m pytest" cmk
+        run: |
+          chown -R cmk:cmk $GITHUB_WORKSPACE $GITHUB_STEP_SUMMARY
+          su -l -c "cd $GITHUB_WORKSPACE; python3 -m pytest -v --emoji -cov . --md $GITHUB_STEP_SUMMARY " cmk
