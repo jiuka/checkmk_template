@@ -5,7 +5,7 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		// Update 'VARIANT' to pick an Ubuntu version: focal, bionic
-		"args": { "VARIANT": "2.2.0-latest" }
+		"args": { "VARIANT": "2.3.0-latest" }
 	},
 
 	"customizations": {
